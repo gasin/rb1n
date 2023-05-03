@@ -1,22 +1,31 @@
-pub fn mod_pow(mut base: u64, mut exp: u64, modulus: u64) -> u64 {
-    if modulus == 1 {
-        return 0;
+use crate::math::num_trait::*;
+
+pub fn mod_pow<
+    T: PartialOrd + One + Zero + std::ops::Rem<T, Output = T> + std::ops::Div<T, Output = T> + Copy,
+>(
+    mut base: T,
+    mut exp: T,
+    modulus: T,
+) -> T {
+    if modulus == T::one() {
+        return T::zero();
     }
 
-    let mut result = 1;
+    let mut result = T::one();
+    let two = T::one() + T::one();
 
     base = base % modulus;
 
-    while exp > 0 {
-        if exp % 2 == 1 {
+    while exp > T::zero() {
+        if exp % two == T::one() {
             result = (result * base) % modulus;
         }
 
-        exp = exp >> 1;
+        exp = exp / two;
         base = (base * base) % modulus;
     }
 
-    return result;
+    result
 }
 
 #[cfg(test)]
