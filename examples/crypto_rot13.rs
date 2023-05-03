@@ -9,4 +9,7 @@ fn main() {
 
     let decrypted = rb1n::crypto::Rot13::decrypt(&encrypted);
     println!("decrypted: {}", decrypted);
+
+    let attacked = rb1n::crypto::rot13::attack::attack(&encrypted);
+    println!("attacked: {}", attacked);
 }
