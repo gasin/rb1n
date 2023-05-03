@@ -1,2 +1,2 @@
 pub mod attack;
-pub mod rot13;
+pub mod cipher;
