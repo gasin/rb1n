@@ -1,7 +1,7 @@
 //! Rot13 Cipher
 
-pub fn rot13(input: &str) -> String {
-    input
+pub fn encrypt(plain: &str) -> String {
+    plain
         .chars()
         .map(|c: char| {
             if c.is_ascii_alphabetic() {
@@ -14,17 +14,31 @@ pub fn rot13(input: &str) -> String {
         .collect()
 }
 
+pub fn decrypt(enc: &str) -> String {
+    encrypt(enc)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
-    fn base() {
-        assert_eq!(rot13("Hoge"), "Ubtr")
+    fn encrypt_base() {
+        assert_eq!(encrypt("Hoge"), "Ubtr")
     }
 
     #[test]
-    fn not_alphabet() {
-        assert_eq!(rot13("H0ge_!"), "U0tr_!")
+    fn encrypt_not_alphabet() {
+        assert_eq!(encrypt("H0ge_!"), "U0tr_!")
+    }
+
+    #[test]
+    fn decrypt_base() {
+        assert_eq!(decrypt("Ubtr"), "Hoge")
+    }
+
+    #[test]
+    fn decrypt_not_alphabet() {
+        assert_eq!(encrypt("U0tr_!"), "H0ge_!")
     }
 }
